@@ -1,0 +1,14 @@
+
+路由
+
+vue2 使用低版本
+npm i vue-router@3
+
+# v-charts
+"""
+会有包的冲突
+"""
+npm i v-charts echarts -S
+
+# 解决上述包冲突的问题
+npm i v-charts echarts@4.9.0 -S

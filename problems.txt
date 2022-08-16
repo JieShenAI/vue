@@ -1,0 +1,5 @@
+连续结构赋值的写法
+
+props({query:{id,title}}){
+	return {id,title}
+}

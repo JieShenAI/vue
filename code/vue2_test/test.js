@@ -1,0 +1,1 @@
+console.log((1 + 9).toString(36));

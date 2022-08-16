@@ -5,7 +5,7 @@
 			:key="todoObj.id" 
 			:todo="todoObj" 
 			:checkTodo="checkTodo"
-			:deleteTodo="deleteTodo"
+			:deleteTodo="deleteTodo" 
 		/>
 	</ul>
 </template>

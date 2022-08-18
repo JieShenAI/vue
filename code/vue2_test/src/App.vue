@@ -5,13 +5,13 @@
 </template>
 
 <script>
-import ShowPaper from './components/ShowPaper.vue';
+import ShowPaper from "./components/ShowPaper.vue";
 export default {
-  name: 'App',
+  name: "App",
   components: {
     ShowPaper,
-}
-}
+  },
+};
 </script>
 
 <style>

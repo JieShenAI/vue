@@ -1,1 +1,4 @@
-console.log((1 + 9).toString(36));
+arr = {};
+arr.tag = "p";
+arr["name"] = "jie";
+console.log(arr);

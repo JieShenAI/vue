@@ -1,7 +1,10 @@
 <template>
   <a-layout id="components-layout-demo-top-side-2">
     <a-layout-header class="header">
-      <div class="logo" />
+      <!-- <div class="logo"><p>文字</p></div> -->
+      <div class="logo">
+        <div class="logoTxt">产业规划</div>
+      </div>
       <a-menu
         theme="dark"
         mode="horizontal"
@@ -14,36 +17,86 @@
       </a-menu>
     </a-layout-header>
     <a-layout>
-      <a-layout-sider width="200" style="background: #fff">
+      <a-layout-sider width="250px" style="background: #fff">
+        <div style="margin-top: 10px">
+          <a-switch :default-checked="false" @change="changeMode" /> 排列
+          <span className="ant-divider" style="margin: 0 1em" />
+          <a-switch :default-checked="false" @change="changeTheme" /> 主题
+        </div>
+        <br />
         <a-menu
-          mode="inline"
+          style="width: 256x"
           :default-selected-keys="['1']"
           :default-open-keys="['sub1']"
-          :style="{ height: '100%', borderRight: 0 }"
+          :mode="mode"
+          :theme="theme"
         >
-          <a-sub-menu key="sub1">
-            <span slot="title"><a-icon type="user" />subnav 1</span>
-            <a-menu-item key="1" @click="goPage('ch1')"> option1 </a-menu-item>
-            <a-menu-item key="2" @click="goPage('ch2')"> option2 </a-menu-item>
-            <a-menu-item key="3" @click="goPage('ch3')"> option3 </a-menu-item>
-            <a-menu-item key="4"> option4 </a-menu-item>
+          <a-sub-menu key="ch1">
+            <span slot="title">
+              <span>规划编制背景</span>
+            </span>
+            <a-menu-item key="ch1-1" @click="goPage('ch1-1')"
+              >规划区域介绍</a-menu-item
+            >
+            <a-menu-item key="ch1-2" @click="goPage('ch1-2')"
+              >重要领导人讲话</a-menu-item
+            >
+            <a-menu-item key="ch1-3" @click="goPage('ch1-3')"
+              >相关政策文件</a-menu-item
+            >
+            <a-menu-item key="ch1-4" @click="goPage('ch1-4')"
+              >宏观发展形势</a-menu-item
+            >
+            <a-menu-item key="ch1-5" @click="goPage('ch1-5')"
+              >规划目的与意义</a-menu-item
+            >
           </a-sub-menu>
-          <a-sub-menu key="sub2">
-            <span slot="title"><a-icon type="laptop" />subnav 2</span>
-            <a-menu-item key="5"> option5 </a-menu-item>
-            <a-menu-item key="6"> option6 </a-menu-item>
-            <a-menu-item key="7"> option7 </a-menu-item>
-            <a-menu-item key="8"> option8 </a-menu-item>
+
+          <a-sub-menu key="ch2">
+            <span slot="title">
+              <span>发展现状分析</span>
+            </span>
+            <a-menu-item key="ch2-1" @click="goPage('ch2-1')"
+              >产业发展成就</a-menu-item
+            >
+            <a-menu-item key="ch2-2" @click="goPage('ch2-2')"
+              >现存发展问题</a-menu-item
+            >
           </a-sub-menu>
-          <a-sub-menu key="sub3">
-            <span slot="title"><a-icon type="notification" />subnav 3</span>
-            <a-menu-item key="9"> option9 </a-menu-item>
-            <a-menu-item key="10"> option10 </a-menu-item>
-            <a-menu-item key="11"> option11 </a-menu-item>
-            <a-menu-item key="12"> option12 </a-menu-item>
+
+          <a-sub-menu key="ch3">
+            <span slot="title">
+              <span>发展条件与环境</span>
+            </span>
+            <a-menu-item key="3" @click="goPage('xxx')"
+              >地区要素条件分析</a-menu-item
+            >
+            <a-menu-item key="4" @click="goPage('xxx')"
+              >地区发展环境分析</a-menu-item
+            >
+          </a-sub-menu>
+
+          <a-sub-menu key="ch4">
+            <span slot="title">
+              <span>总体要求</span>
+            </span>
+            <a-menu-item key="ch4-1">（一）指导思想</a-menu-item>
+            <a-menu-item key="ch4-2">（二）基本原则</a-menu-item>
+            <a-menu-item key="ch4-3"> （三）发展思路</a-menu-item>
+            <a-menu-item key="ch4-4"> （四）发展目标</a-menu-item>
+          </a-sub-menu>
+
+          <a-sub-menu key="ch5">
+            <span slot="title">
+              <span>地区产业体系</span>
+            </span>
+            <a-menu-item key="ch5-1">（一）重点产业类型</a-menu-item>
+            <a-menu-item key="ch5-2">（二）地区产业体系</a-menu-item>
+            <a-menu-item key="ch5-3"> （三）产业发展策略</a-menu-item>
           </a-sub-menu>
         </a-menu>
       </a-layout-sider>
+
       <a-layout style="padding: 0 24px 24px">
         <!-- <a-breadcrumb style="margin: 16px 0">
           <a-breadcrumb-item>Home</a-breadcrumb-item>
@@ -62,6 +115,10 @@
           <!-- <a-layout-content
           :style="{ background: '#fff', padding: '24px', margin: 0, minHeight: '280px' }"
         > -->
+
+          <!-- <keep-alive>
+            <router-view></router-view>
+          </keep-alive> -->
           <router-view></router-view>
         </a-layout-content>
       </a-layout>
@@ -72,14 +129,34 @@
 
 <style>
 #components-layout-demo-top-side-2 .logo {
+  position: relative;
   width: 120px;
   height: 31px;
-  background: rgba(255, 255, 255, 0.2);
+  /* background: rgba(255, 255, 255, 0.2); */
+  /* background: url("https://www.pkuplanning.com/upload/img/20200411234857.png"); */
   margin: 16px 28px 16px 0;
   float: left;
+  /* border: 2px red solid; */
+}
+
+.logo .logoTxt {
+  position: absolute;
+  color: aliceblue;
+  margin: 0 auto;
+  line-height: 31px;
+  font-size: 16px;
+}
+p {
+  text-indent: 2em;
+  text-align: left;
+  font-size: 16px;
+}
+h2,
+h3 {
+  text-align: left;
+  font-size: 20px;
 }
 </style>
-
 
 
 <script>
@@ -88,10 +165,18 @@ export default {
   components: {},
   data() {
     return {
-      collapsed: false,
+      // collapsed: false,
+      mode: "inline",
+      theme: "light",
     };
   },
   methods: {
+    changeMode(checked) {
+      this.mode = checked ? "vertical" : "inline";
+    },
+    changeTheme(checked) {
+      this.theme = checked ? "dark" : "light";
+    },
     goPage(name) {
       this.$router.push({
         name: name,

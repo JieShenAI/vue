@@ -24,7 +24,15 @@ import 'v-charts/lib/style.css'
 // import VeLine from 'v-charts/lib/line.common'
 Vue.use(VCharts)
 
-/* eslint-disable no-new */
+
+Vue.prototype.$paper = {
+  ch1: {},
+  ch2: {},
+  ch3: {},
+  ch4: {},
+  ch5: {},
+  ch6: {},
+}
 new Vue({
   el: '#app',
   render: h => h(App),

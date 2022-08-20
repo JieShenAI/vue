@@ -19,14 +19,25 @@ Vue.use(VueRouter)
 
 
 // vcharts 官网: https://v-charts.js.org/
-import VCharts from 'v-charts'
-import 'v-charts/lib/style.css'
-// import VeLine from 'v-charts/lib/line.common'
-Vue.use(VCharts)
+// import VCharts from 'v-charts'
+// import 'v-charts/lib/style.css'
+// Vue.use(VCharts)
 
+
+// echarts 百度
+// import echarts from "echarts";
+// 避免命名冲突
+// Vue.prototype.$echarts = echarts;
+
+
+
+//mix
+import { paperMix } from './mixin'
+Vue.mixin(paperMix)
 
 Vue.prototype.$paper = {
-  ch1: {},
+  ch1: {
+  },
   ch2: {},
   ch3: {},
   ch4: {},

@@ -42,5 +42,7 @@ export default new VueRouter({
             path: "ch3",
             component: ChapterThree,
         },
+        { path: "/axios", component: () => import('../components/AxiosTest') },
+        { path: "/echarts/demo", component: () => import('../components/EchartsDemo') },
     ]
 })

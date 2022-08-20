@@ -29,7 +29,7 @@ export default {
     if (typeof textData === "undefined") {
       t1 = "";
     } else {
-      t1 = textData.t1;
+      t1 = textData.txts.t1;
     }
     return {
       t1,
@@ -37,7 +37,9 @@ export default {
   },
   beforeDestroy() {
     this.$paper.ch1.se3 = {
-      t1: this.t1,
+      txts: {
+        t1: this.t1,
+      },
     };
   },
 };

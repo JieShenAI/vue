@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>雷达图</title>
+    <script src="/static/js/echarts.js"></script>
+    <style>
+        .echartsPic {
+            width: 800px;
+            height: 400px;
+        }
+    </style>
+</head> 
+
+<body>
+    <h2>雷达图</h2>
+    <div id="main" class="echartsPic"></div>
+    <h2>GDP图</h2>
+    <p>单位: 亿元</p>
+    <div id="gdp" class="echartsPic"></div>
+</body>
+
+<script>
+    var jsonData = {
+
+        "datas": [
+            {
+                "rDate": "2015年",
+                "rValue": 402.61,
+                "men": 210.19,
+                "women": 192.42,
+                "city": 74.52,
+                "rural": 328.10,
+                "birth": 4.62,
+                "city_rValue": 0
+            },
+
+            {
+                "rDate": "2016年",
+                "rValue": 404.01,
+                "men": 210.73,
+                "women": 193.28,
+                "city": 88.85,
+                "rural": 315.16,
+                "birth": 4.51,
+                "city_rValue": 0
+            },
+
+            {
+                "rDate": "2017年",
+                "rValue": 401.36,
+                "men": 209.34,
+                "women": 192.02,
+                "city": 92.75,
+                "rural": 308.61,
+                "birth": 4.23,
+                "city_rValue": 0
+            },
+
+            {
+                "rDate": "2018年",
+                "rValue": 402.04,
+                "men": 209.54,
+                "women": 192.5,
+                "city": 95.96,
+                "rural": 306.08,
+                "birth": 3.9,
+                "city_rValue": 0
+            },
+
+            {
+                "rDate": "2019年",
+                "rValue": 402.10,
+                "men": 209.47,
+                "women": 192.63,
+                "city": 155.47,
+                "rural": 246.63,
+                "birth": 3.72,
+                "city_rValue": 0
+            },
+
+            {
+                "rDate": "2020年",
+                "rValue": 402.22,
+                "men": 209.46,
+                "women": 192.76,
+                "city": 160.93,
+                "rural": 241.29,
+                "birth": 3.21,
+                "city_rValue": 0
+            }
+        ],
+        "engine": "population",
+        "title": "总人口",
+        "legend": [
+            "年末人口",
+            "城镇人口",
+            "乡村人口",
+            "新出生人口",
+            "城镇人口占总人口比重（%）"
+        ],
+        "unit": "万人",
+        "tooltip_type": "shadow",
+        "series_type": "bar",
+        "source": "接口地址：",
+        "source_link": "http://www.enshi.gov.cn/sjfb/zrk/zrktest.json"
+    }
+
+    var itemsTitle;
+    function generateData(jsonData) {
+        itemsTitle = Object.keys(jsonData["datas"][0]);
+
+        dataArr = []
+
+        // dataArr init
+        dataLen = jsonData["datas"].length;
+        for (let i = 0; i < jsonData["datas"].length; i++) {
+            dataArr.push(
+                {
+                    value: [],
+                    name: ""
+                }
+            );
+        }
+
+        for (let i = 0; i < jsonData["datas"].length; i++) {
+            let item = jsonData["datas"][i];
+            dataArr[i]["value"].push(item["rValue"]);
+            dataArr[i]["value"].push(item["city"]);
+            dataArr[i]["value"].push(item["rural"]);
+            dataArr[i]["value"].push(item["birth"]);
+            dataArr[i]["name"] = item["rDate"];
+        }
+
+        return dataArr;
+    }
+</script>
+<script>
+    var chartDom = document.getElementById('main');
+    var myChart = echarts.init(chartDom);
+    var option;
+
+    option = {
+        title: {
+            text: 'Basic Radar Chart'
+        },
+        legend: {
+            data: itemsTitle
+        },
+        radar: {
+            shape: 'circle',
+            indicator: [
+                { name: "年末人口（万人）", max: 450 },
+                { name: "城镇人口（万人）", max: 180 },
+                { name: "乡村人口（万人）", max: 380 },
+                { name: "新出生人口（万人）", max: 6 },
+            ]
+
+        },
+        series: [
+            {
+                name: 'Budget vs spending',
+                type: 'radar',
+                data: generateData(jsonData)
+            }
+        ]
+    };
+    myChart.setOption(option);
+</script>
+
+<script>
+    var gdpJSon = {
+        "datas": [
+            { "rDate": "2015年一季度", "rValue": 122.37 },
+
+            { "rDate": "2015年二季度", "rValue": 257.56 },
+
+            { "rDate": "2015年三季度", "rValue": 465.65 },
+
+            { "rDate": "2015年四季度", "rValue": 670.8118 },
+
+            { "rDate": "2016第一季度", "rValue": 133.33 },
+
+            { "rDate": "2016年二季度", "rValue": 280.74 },
+
+            { "rDate": "2016年三季度", "rValue": 507.07 },
+
+            { "rDate": "2016年四季度", "rValue": 735.7 },
+
+            { "rDate": "2017年一季度", "rValue": 147.18 },
+
+            { "rDate": "2017年二季度", "rValue": 306.72 },
+
+            { "rDate": "2017年三季度", "rValue": 544.51 },
+
+            { "rDate": "2017年四季度", "rValue": 801.23 },
+
+            { "rDate": "2018年一季度", "rValue": 227.94 },
+
+            { "rDate": "2018年二季度", "rValue": 477.74 },
+
+            { "rDate": "2018年三季度", "rValue": 797.57 },
+
+            { "rDate": "2018年四季度", "rValue": 1082.31 },
+
+            { "rDate": "2019年一季度", "rValue": 244.85 },
+
+            { "rDate": "2019年二季度", "rValue": 515.92 },
+
+            { "rDate": "2019年三季度", "rValue": 849.94 },
+
+            { "rDate": "2019年四季度", "rValue": 1159.37 },
+
+            { "rDate": "2020年一季度", "rValue": 182.72 },
+
+            { "rDate": "2020年二季度", "rValue": 450.27 },
+
+            { "rDate": "2020年三季度", "rValue": 807.9 },
+
+            { "rDate": "2020年四季度", "rValue": 1117.7 },
+
+            { "rDate": "2021年一季度", "rValue": 245.05 },
+
+            { "rDate": "2021年二季度", "rValue": 569.02 },
+
+            { "rDate": "2021年三季度", "rValue": 924.80 },
+
+            { "rDate": "2021年四季度", "rValue": 1302.36 }
+
+        ],
+        "title": "GDP",
+        "legend": "国内生产总值",
+        "Definition": "当期总额",
+        "unit": "亿元",
+        "tooltip_type": "shadow",
+        "series_type": "bar",
+        "source": "接口地址",
+        "source_link": "http:\/\/www.enshi.gov.cn\/sjfb\/gdp\/GDPtest.json"
+    }
+    var one = [];
+    var two = [];
+    var three = [];
+    var four = [];
+    function generateGDPData(params) {
+        for (const iter of params["datas"]) {
+            rDate = iter["rDate"]
+            if (rDate.indexOf("一") !== -1) {
+                one.push(iter["rValue"])
+            } else if (rDate.indexOf("二") !== -1) {
+                two.push(iter["rValue"])
+            } else if (rDate.indexOf("三") !== -1) {
+                three.push(iter["rValue"])
+            } else {
+                four.push(iter["rValue"])
+            }
+        }
+    }
+    (
+        function () {
+            generateGDPData(gdpJSon);
+        }
+    )();
+    var chartGDPDom = document.getElementById('gdp');
+    var gdpChart = echarts.init(chartGDPDom);
+    var gdOption;
+
+    gdOption = {
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                // Use axis to trigger tooltip
+                type: 'shadow' // 'shadow' as default; can also be 'line' or 'shadow'
+            }
+        },
+        legend: {},
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis: {
+            type: 'value'
+        },
+        yAxis: {
+            type: 'category',
+            data: ['2015', '2016', '2017', '2018', "2019", "2020", "2021"]
+        },
+        series: [
+            {
+                name: '第一季度',
+                type: 'bar',
+                stack: 'total',
+                label: {
+                    show: true
+                },
+                emphasis: {
+                    focus: 'series'
+                },
+                data: one
+            },
+            {
+                name: '第二季度',
+                type: 'bar',
+                stack: 'total',
+                label: {
+                    show: true
+                },
+                emphasis: {
+                    focus: 'series'
+                },
+                data: two
+            },
+            {
+                name: '第三季度',
+                type: 'bar',
+                stack: 'total',
+                label: {
+                    show: true
+                },
+                emphasis: {
+                    focus: 'series'
+                },
+                data: three
+            },
+            {
+                name: '第四季度',
+                type: 'bar',
+                stack: 'total',
+                label: {
+                    show: true
+                },
+                emphasis: {
+                    focus: 'series'
+                },
+                data: four
+            }
+        ]
+    };
+
+    gdpChart.setOption(gdOption);
+
+</script>
+
+</html>

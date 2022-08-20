@@ -11,9 +11,29 @@
         :default-selected-keys="['2']"
         :style="{ lineHeight: '64px' }"
       >
-        <a-menu-item key="1"> nav 1 </a-menu-item>
-        <a-menu-item key="2"> nav 2 </a-menu-item>
-        <a-menu-item key="3"> nav 3 </a-menu-item>
+        <a-button-group>
+          <div>
+            <a-button
+              type="primary"
+              icon="cloud-upload"
+              style="height: 80%"
+              @click="savePaper"
+            ></a-button>
+            <!-- <a-button
+              type="primary"
+              icon="cloud-download"
+              style="height: 80%"
+              @click="getData"
+            ></a-button> -->
+          </div>
+
+          <div>
+            <a href="http://127.0.0.1/paper/downword" style="height: 80%"
+              >导出</a
+            >
+          </div>
+        </a-button-group>
+        <!-- <a-menu-item key="3"> nav 3 </a-menu-item> -->
       </a-menu>
     </a-layout-header>
     <a-layout>
@@ -57,10 +77,10 @@
               <span>发展现状分析</span>
             </span>
             <a-menu-item key="ch2-1" @click="goPage('ch2-1')"
-              >产业发展成就</a-menu-item
+              >产业发展成就1</a-menu-item
             >
             <a-menu-item key="ch2-2" @click="goPage('ch2-2')"
-              >现存发展问题</a-menu-item
+              >现存发展成就2</a-menu-item
             >
           </a-sub-menu>
 
@@ -156,6 +176,10 @@ h3 {
   text-align: left;
   font-size: 20px;
 }
+
+.right {
+  float: right;
+}
 </style>
 
 
@@ -170,6 +194,7 @@ export default {
       theme: "light",
     };
   },
+  mounted() {},
   methods: {
     changeMode(checked) {
       this.mode = checked ? "vertical" : "inline";
@@ -182,6 +207,17 @@ export default {
         name: name,
       });
     },
+    savePaper() {
+      let url = "http://localhost:8080/jango/paper/upjson";
+      this.postData(url, this.$paper);
+      alert("上传完成");
+    },
+    /*
+    getData() {
+      let obj = this.queryJson("save");
+      // this.$paper = obj;
+      console.log("obj", obj);
+    },*/
   },
 };
 </script>

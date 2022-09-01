@@ -1,352 +1,43 @@
 <template>
   <div>
-    <a-button type="primary" @click="upJson">保存</a-button>
-    <h2>（一）基本经济指标</h2>
-    <h3>1.地区生产总值</h3>
-    <div ref="t1">
-      <div style="border: 2px #1890ff dashed; margin: 15px 0px">
-        <button @click="autoFill">填充数据</button>
-        &emsp;&emsp;
-        <button @click="clearFill">清除数据</button>
-        &emsp;&emsp;
-
-        <span>省平均GDP:</span>
-        <a-input-number
-          v-model="provinceAvg"
-          :parser="(value) => value.replace(/\$\s?|(,*)/g, '')"
-          @change="onChange"
-        />
-        &emsp;&emsp;
-        <span>全国平均GDP:</span>
-        <a-input-number
-          v-model="countryAvg"
-          :parser="(value) => value.replace(/\$\s?|(,*)/g, '')"
-          @change="onChange"
-        />
-      </div>
-      <p>
-        {{ auto1Arr[0] }}年恩施实现地区生产总值
-        {{ auto1Arr[1] }}亿元，按可比价格计算，比上年增长
-        {{ auto1Arr[2] }}%，增速在湖北省地级行政区位居第
-        {{ auto1Arr[3] }}，低于/高于全省平均增速； 在全国地级行政区中位居第
-        {{ auto1Arr[4] }}，低于/高于全国平均增速。全州人均地区生产总值
-        <font color="red">
-          {{ auto1Arr[5] }}
-        </font>
-        元，在湖北省地级行政区位居第
-        {{ auto1Arr[6] }}
-        ，
-        <font color="red">
-          {{ provinceLevel }}
-        </font>
-
-        全省平均水平，在全国地级行政区中位居第
-        {{ auto1Arr[7] }}，
-        <font color="red">
-          {{ countryLevel }}
-        </font>
-        全国平均水平。 总体来看，恩施州目前经济发展水平
-        <font color="red">
-          {{ conclusion }}
-        </font>
-        。
-      </p>
-      <p>
-        从过去十年的地区生产总值来看，恩施州经济总量规模持续扩大，地区生产总值和人均地区生产总值均表现出逐年上升的增长趋势。
-        从增速来来看，地区生产总值的增速高于全省/全国平均水平，并保持稳定在高增长水平（但呈现出小幅度波动）；
-        地区生产总值的增速高于同样全省/全国平均水平，并保持稳定在高增长水平（但呈现出小幅度波动）。
-      </p>
-      <a-textarea auto-size v-model="t1" />
-
-      <h3>2.地区财政水平</h3>
-
-      <div ref="t2">
-        <p>
-          2021年，恩施全州地方财政总收入168.75亿元，比上年增长17.8%。
-          其中，地方一般公共预算收入75.51亿元，增长31.0%。税收收入56.91亿元，增长29.6%。
-          全年一般公共预算支出376.49亿元，下降19.9%。财政自给率（一般公共预算收入/一般公共预算支出）为20.05%，
-          财政自给率在湖北省地级行政区位居第___，低于/高于全省平均增速；在全国地级行政区中位居第___，
-          低于/高于全国平均增速。
-        </p>
-        <a-textarea auto-size v-model="t2" />
-      </div>
-
-      <h3>3.地区资产规模</h3>
-
-      <div ref="t3">
-        <p>
-          2020年，恩施全州新增固定资产247164万元，比上年增长
-          %。固定资产积累达到亿元； 规模以上固定资产原价为万元。
-          全年固定资产投资比上年增长23.3%。
-          分产业看，第一产业投资增长69.0%；第二产业投资增长15.6%；第三产业投资增长24.0%。
-          实际利用外资万美元，比上年增长 %。
-        </p>
-        <a-textarea auto-size v-model="t3" />
-      </div>
-
-      <h3>4.地区消费市场</h3>
-      <div ref="t4">
-        <p>
-          2020年，社会消费品零售总额为5625925万元，居民消费水平为19710元，农村居民为13525元，城市居民为26909元，
-          比上年分别增长 %、 %、 %。
-          城镇常住居民人均可支配收入为30930元，生活消费支出为21898万元；农村常住居民人均可支配收入11887元，
-          生活消费支出10061元，比上年分别增长 %、 %、 %。
-          进出口总额为9435.70万美元，其中出口9375.5万美元，进60.2万美元，比上年分别增长
-          %、 %、 %。
-        </p>
-        <a-textarea auto-size v-model="t4" />
-      </div>
-
-      <h2>（二）产业结构变化</h2>
-      <div ref="t5">
-        <p>
-          2021年，恩施州第一产业增加值224.51亿元，同比增长12.4%；
-          第二产业增加值299.26亿元，同比增长13.1%；第三产业增加值778.60亿元，同比增长11.0%。
-          三次产业结构比17.2:23.0:59.8。结合过去十年的产业结构变化情况来看，恩施州第二产业在经济中的占比较低，
-          工业化进程滞后于湖北省和全国平均水平（第二产业比重低于全省/全国平均比重）。
-        </p>
-        <p>img ...</p>
-        <p>
-          全年规模以上工业中，农副食品加工业增加值比上年增长28.9%，酒、饮料和精制茶制造业增长13.0%，
-          医药制造业增长87.6%，非金属矿物制品业增长22.0%，计算机、通信和其他电子设备制造业增长46.7%，
-          电力、热力生产和供应业增长5.2%。
-        </p>
-        <p>
-          全年批发和零售业增加值89.38亿元，比上年增长12.1%；
-          交通运输、仓储和邮政业增加值39.64亿元，增长15.5%；住宿和餐饮业增加值40.41亿元，增长23.0%；
-          金融业增加值69.06亿元，增长3.0%；房地产业增加值138.17亿元，增长8.6%；信息传输、
-          软件和信息技术服务业增加值32.05亿元，增长23.0%。
-        </p>
-        <a-textarea auto-size v-model="t5" />
-      </div>
-
-      <h2>（三）重点产业平台</h2>
-      <h3>1.恩施高新区技术产业园区</h3>
-      <div ref="t6">
-        <p>
-          <strong>发展历程：</strong>
-          2017年10月18日，省人民政府批复同意设立恩施州高新技术产业园区，享受省级高新技术产业园区的相关政策。2018年1月18日，高新区与恩施市人民政府签订托管协议，正式托管六角亭街道办事处全境，面积约81.77平方公里；舞阳坝街道办事处金子坝村11.66平方公里维持原托管方式。2018年1月21日，中共恩施州高新技术产业园区工作委员会、恩施州高新技术产业园区管理委员会正式挂牌。
-        </p>
-        <p>
-          <strong>发展定位：</strong>
-          高新区将坚持生态发展、特色开发、绿色繁荣发展，着力推进国家高新区的战略引领和创新示范作用，
-          打造具有国际影响力的“恩施·中国硒谷”，建设“生态型、科技型、创新型”产业园区。
-          建设中国富硒产业发展引领区，立足恩施富硒资源优势和技术积累，在富硒食品、绿色用品等方面加快新技术、
-          新产品研制开发，构建完整的富硒产业链，打造具有国际影响力的中国富硒产业发展引领区。
-        </p>
-        <p>
-          <strong>发展目标与主导产业：</strong>
-          按照州委、州政府确定的“一年打牢基础，两年出形象，三年建成国家级高新区”总体目标，着力打造硒食品精深加工、生物医药、电子信息和现代物流四大产业集群。
-        </p>
-        <p>
-          <strong>空间布局：</strong>
-          目前，恩施州高新技术产业园区按照“一城一心、两区四园六廊”（一城，即施州古城；一心，
-          即月亮岩科技研发中心；两区，即望城坡－高桥坝生态康养区、谭家坝科教区；四园，即生物医药产业园、
-          硒产业园、电子信息产业园、高新南综合产业园；六廊，即高旗大道生态廊道、高桥河生态廊道、月亮岩生态廊道、
-          四道河－安来高速生态廊道、巴公溪生态廊道、清江生态廊道）的功能分区进行规划结构布局。
-        </p>
-        <a-textarea auto-size v-model="t6" />
-      </div>
-
-      <center>
-        <RadarDemo></RadarDemo>
-      </center>
-
-      <center>
-        <BarDemo />
-      </center>
-    </div>
-    <center>
-      <div id="img1" style="width: 600px; height: 400px"></div>
-    </center>
+    <h2>现存发展问题</h2>
+    <h3>（一）总量规模不大</h3>
+    <p>
+      一是总量小。全州规上企业数仅占全省的2%，产值仅占全省的0.5%。
+      二是规模小。规上企业户均产值仅为全省企业平均水平的三分之一。三是增速低。受煤炭去产能、
+      统计口径调整、退规企业较多、新冠疫情等多重因素影响，规上工业增长波动起伏较大。
+    </p>
+    <h3>（二）产业结构不优</h3>
+    <p>
+      一是水电、建材产业占比过重。能源、建材行业规上工业产值占比分别达到25.9%、22.2%，
+      全州规上工业增加值增速受自然降雨量、传统基建项目、房地产市场影响波动较大。
+      二是食品、医药产业层次偏低。绝大多数农副食品和药材生产企业仍处在低附加值的初加工阶段。
+      食品生产企业产能利用率仅为20%左右，户均产值不到5000万元。三是招商质量有待提高。
+      重点工业项目落地少，除电子信息产业外，其他产业特别是先进制造业招商引资成效尚不明显。
+      四是产业内部组织结构不优。
+      主导产业目前没有按照专业化分工形成完整的产业链，实现集群式发展、链式发展。
+    </p>
+    <h3>（三）要素保障不够</h3>
+    <p>
+      一是土地供应紧张。全州新增建设用地十分有限，新增工业供地更加紧张，
+      加之高压电网迁移、居民拆迁成本等因素制约，恩施高新区、各县市园区未来供地空间有限。
+      二是土地集约节约程度低。投资强度、产出密度处于较低水平。部分土地出让后企业破产、项目停滞，
+      占用的工业用地长期不能发挥效益，个别县市情况比较严重。三是企业生产成本较高。
+      用电成本、物流成本等与周边省市相比不占优势。四是发展支撑不够。特别是电子信息、
+      生物医药等新兴产业的科技创新平台、专业研发人才、市场营销人才、技术工人严重不足，
+      企业用人缺口和稳岗问题比较突出。
+    </p>
+    <h3>（四）发展能力不足</h3>
+    <p>
+      一是行业管理机制不顺。部分行业管理部门省、州、县上下不对应，衔接不顺畅严重影响工作效率；部分行业管理职责不够明确。二是引领行业发展不够。重企业轻产业，对产业发展的总体谋划、发展定位、路径研究、问题解析、运行调度不够。恩施玉露、利川红等品牌价值未充分发挥，硒食品、药材等优质资源精深加工方向不够明确，龙头企业培育效果不佳，建材特别是商砼产能过剩等行业突出问题未能有效解决。三是行业管理能力不强。各行业管理部门普遍存在行业管理人员力量不足、业务素质不强、系统培训不多的短板。
+    </p>
   </div>
 </template>
 
 <script>
-// 导入 echarts demo1
-import RadarDemo from "@/components/echarts/RadarDemo";
-import BarDemo from "@/components/echarts/BarDemo";
-
-// echarts
-const echarts = require("echarts/lib/echarts");
-require("echarts/lib/component/grid");
-require("echarts/lib/chart/line");
-
 export default {
-  data() {
-    let t1, t2, t3, t4, t5, t6;
-    let textData = this.$paper.ch2.se2.txts;
-    if (Object.keys(textData).length == 0) {
-      t1 = "";
-      t2 = "";
-      t3 = "";
-      t4 = "";
-      t5 = "";
-      t6 = "";
-    } else {
-      t1 = textData.t1;
-      t2 = textData.t2;
-      t3 = textData.t3;
-      t4 = textData.t4;
-      t5 = textData.t5;
-      t6 = textData.t6;
-    }
 
-    return {
-      countryAvg: 38011,
-      provinceAvg: 38011,
-      auto1Arr: [],
-      t1: t1,
-      t2: t2,
-      t3: t3,
-      t4: t4,
-      t5: t5,
-      t6: t6,
-      fill: (ref) => {
-        let nodes = this.$refs[ref].childNodes;
-        for (let node of nodes) {
-          if (node.tagName === "P") {
-            this[ref] += node.innerText + "\n";
-          }
-        }
-      },
-      clear: (ref) => {
-        this[ref] = "";
-      },
-      textRefArr: ["t1", "t2", "t3", "t4", "t5", "t6"],
-      img1: "",
-    };
-  },
-  methods: {
-    autoFill() {
-      // 后续记得删除
-      this.auto1Arr = [
-        "2021",
-        "1302.36",
-        "10",
-        "15",
-        "150",
-        "38011",
-        "15",
-        "15",
-        "15",
-      ];
-
-      /**
-       * 将textarea前的文字加入
-       */
-      for (let ref of this.textRefArr) {
-        this.fill(ref);
-      }
-    },
-    clearFill() {
-      // 记得删除
-      this.auto1Arr = [];
-      for (let ref of this.textRefArr) {
-        this.clear(ref);
-      }
-    },
-    test() {
-      this.fill("t2");
-    },
-    onChange(value) {
-      console.log("changed", value);
-    },
-    save() {
-      let textData = {
-        t1: this.t1,
-        t2: this.t2,
-        t3: this.t3,
-        t4: this.t4,
-        t5: this.t5,
-        t6: this.t6,
-      };
-      // let imgs = {
-      //   img1: this.img1,
-      // };
-      this.$paper.ch2.se2.txts = textData;
-      this.$paper.ch2.se2.imgs["img1"] = this.img1;
-    },
-    draw() {
-      var chartDom = document.getElementById("img1");
-      var myChart = echarts.init(chartDom);
-      var option;
-
-      option = {
-        animation: false,
-        xAxis: {
-          type: "category",
-          data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-        },
-        yAxis: {
-          type: "value",
-        },
-        series: [
-          {
-            data: [150, 230, 224, 218, 135, 147, 260],
-            type: "line",
-          },
-        ],
-      };
-
-      option && myChart.setOption(option);
-      let chartBase64 = myChart.getDataURL({
-        pixelRatio: 2,
-        backgroundColor: "#fff",
-      });
-      // console.log(chartBase64);
-      return chartBase64.slice(22);
-    },
-    upJson() {
-      this.save();
-      alert("保存成功");
-    },
-  },
-  computed: {
-    countryLevel() {
-      if (!this.auto1Arr[5]) {
-        return "";
-      }
-      return this.auto1Arr[5] >= Number(this.countryAvg) ? "高于" : "低于";
-    },
-    provinceLevel() {
-      if (!this.auto1Arr[5]) {
-        return "";
-      }
-      return this.auto1Arr[5] >= Number(this.provinceAvg) ? "高于" : "低于";
-    },
-    conclusion() {
-      if (!this.auto1Arr[5]) {
-        return "";
-      }
-      if (this.countryLevel === "高于" && this.provinceLevel === "高于") {
-        return "超过平均水平";
-      } else if (this.countryLevel !== this.provinceLevel) {
-        return "一般";
-      } else {
-        return "相对落后";
-      }
-    },
-    // this.imgData = this.draw();
-  },
-  beforeCreate() {
-    if (Object.keys(this.$paper.ch2) == 0) {
-      this.$paper.ch2["se2"] = {};
-      this.$paper.ch2["se2"]["txts"] = {};
-      this.$paper.ch2["se2"]["imgs"] = {};
-    }
-  },
-  beforeDestroy() {
-    this.save();
-  },
-  mounted() {
-    this.img1 = this.draw();
-  },
-  components: {
-    RadarDemo,
-    BarDemo,
-  },
-};
+}
 </script>
 
 <style>

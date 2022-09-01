@@ -16,7 +16,7 @@
 </template>
 
 <script>
-	import {mapState,mapGetters} from 'vuex'
+	import {mapState,mapGetters, mapMutations} from 'vuex'
 	export default {
 		name:'Count',
 		data() {
@@ -56,18 +56,22 @@
 
 		},
 		methods: {
-			increment(){
-				this.$store.commit('JIA',this.n)
-			},
-			decrement(){
-				this.$store.commit('JIAN',this.n)
-			},
-			incrementOdd(){
-				this.$store.dispatch('jiaOdd',this.n)
-			},
-			incrementWait(){
-				this.$store.dispatch('jiaWait',this.n)
-			},
+			// increment(){
+			// 	this.$store.commit('JIA',this.n)
+			// },
+			// decrement(){
+			// 	this.$store.commit('JIAN',this.n)
+			// },
+			// incrementOdd(){
+			// 	this.$store.dispatch('jiaOdd',this.n)
+			// },
+			// incrementWait(){
+			// 	this.$store.dispatch('jiaWait',this.n)
+			// },
+			...mapMutations({
+				increment:"JIA",
+				incrementWait:""
+			})
 		},
 		mounted() {
 			const x = mapState({he:'sum',xuexiao:'school',xueke:'subject'})

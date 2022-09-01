@@ -14,7 +14,7 @@
 <script>
 	export default {
 		name:'MyFooter',
-		props:['todos'],
+		props:['todos','checkAllTodo','clearAllTodo'],
 		computed: {
 			//总数
 			total(){
@@ -28,7 +28,7 @@
 					return pre + (current.done ? 1 : 0)
 				},0) */
 				//简写
-				return this.todos.reduce((pre,todo) => pre + (todo.done ? 1 : 0) ,0)
+				return this.todos.reduce((pre,todo)=> pre + (todo.done ? 1 : 0) ,0)
 			},
 			//控制全选框
 			isAll:{
@@ -38,8 +38,7 @@
 				},
 				//isAll被修改时set被调用
 				set(value){
-					// this.checkAllTodo(value)
-					this.$emit('checkAllTodo',value)
+					this.checkAllTodo(value)
 				}
 			}
 		},
@@ -49,8 +48,7 @@
 			} */
 			//清空所有已完成
 			clearAll(){
-				// this.clearAllTodo()
-				this.$emit('clearAllTodo')
+				this.clearAllTodo()
 			}
 		},
 	}

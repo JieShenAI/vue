@@ -11,3 +11,14 @@ npm i vue-router@3
 
 ## 解决上述包冲突的问题
 npm i v-charts echarts@4.9.0 -S
+
+
+# .less 文件
+npm install --save less less-loader@5
+
+
+# nprogress
+npm install --save nprogress
+ 
+# vuex
+npm install --save vuex

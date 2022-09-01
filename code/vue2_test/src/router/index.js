@@ -5,7 +5,6 @@ import ChapterOne from '../pages/ChapterOne'
 import ChapterTwo from '../pages/ChapterTwo'
 import ChapterThree from '../pages/ChapterThree'
 import Ch1Se1 from '../pages/papers/Ch1/Ch1Se1'
-import Ch1Se2 from '../pages/papers/Ch1/Ch1Se2'
 
 
 // { path: '/amap', name: '高德地图', component: () => import('./pages/amap') },
@@ -23,13 +22,7 @@ export default new VueRouter({
             path: "ch1-1",
             component: Ch1Se1,
         },
-        {
-            name: "ch1-2",
-            path: "ch1-2",
-            component: Ch1Se2,
-        },
-        { name: "ch1-3", path: "ch1-3", component: () => import('../pages/papers/Ch1/Ch1Se3') },
-        { name: "ch1-4", path: "ch1-4", component: () => import('../pages/papers/Ch1/Ch1Se4') },
+
         {
             name: "ch2",
             path: "ch2",
@@ -44,5 +37,6 @@ export default new VueRouter({
         },
         { path: "/axios", component: () => import('../components/AxiosTest') },
         { path: "/echarts/demo", component: () => import('../components/EchartsDemo') },
+        { name: "print", path: "/print", component: () => import('../pages/papers/OutPrint') },
     ]
 })

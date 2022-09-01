@@ -1,17 +1,34 @@
 <template>
 	<div>
-		<School/>
-		<hr>
-		<Student/>
+		<Alice @back="back" />
+		<Bob @back="back" />
+		<hr />
+		<p>info: {{ this.info }}</p>
 	</div>
 </template>
 
 <script>
-	import School from './components/School'
-	import Student from './components/Student'
+import Alice from './components/Alice.vue';
+import Bob from './components/Bob.vue';
 
-	export default {
-		name:'App', 
-		components:{School,Student}
+export default {
+	data() {
+		return {
+			info: "",
+		}
+	},
+	components: {
+		Alice,
+		Bob,
+	},
+	methods: {
+		back(a, b, c) {
+			// console.log(a, b, c);
+			this.info = this.info + c + '\n';
+		},
 	}
+}
 </script>
+
+<style>
+</style>

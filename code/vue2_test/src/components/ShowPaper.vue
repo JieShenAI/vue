@@ -5,20 +5,10 @@
       <div class="logo">
         <div class="logoTxt">产业规划</div>
       </div>
-      <a-menu
-        theme="dark"
-        mode="horizontal"
-        :default-selected-keys="['2']"
-        :style="{ lineHeight: '64px' }"
-      >
+      <a-menu theme="dark" mode="horizontal" :default-selected-keys="['2']" :style="{ lineHeight: '64px' }">
         <a-button-group>
           <div>
-            <a-button
-              type="primary"
-              icon="cloud-upload"
-              style="height: 80%"
-              @click="savePaper"
-            ></a-button>
+            <!-- <a-button type="primary" icon="cloud-upload" style="height: 80%" @click="savePaper"></a-button> -->
             <!-- <a-button
               type="primary"
               icon="cloud-download"
@@ -28,9 +18,8 @@
           </div>
 
           <div>
-            <a href="http://127.0.0.1/paper/downword" style="height: 80%"
-              >导出</a
-            >
+            <!-- <a href="http://127.0.0.1/paper/downword" style="height: 80%">导出</a> -->
+            <a-button type="primary" @click="goPage('print')">导出</a-button>
           </div>
         </a-button-group>
         <!-- <a-menu-item key="3"> nav 3 </a-menu-item> -->
@@ -44,56 +33,28 @@
           <a-switch :default-checked="false" @change="changeTheme" /> 主题
         </div>
         <br />
-        <a-menu
-          style="width: 256x"
-          :default-selected-keys="['1']"
-          :default-open-keys="['sub1']"
-          :mode="mode"
-          :theme="theme"
-        >
+        <a-menu style="width: 256x" :default-selected-keys="['1']" :default-open-keys="['sub1']" :mode="mode"
+          :theme="theme">
           <a-sub-menu key="ch1">
-            <span slot="title">
+            <span slot="title" @click="goPage('ch1-1')">
               <span>规划编制背景</span>
             </span>
-            <a-menu-item key="ch1-1" @click="goPage('ch1-1')"
-              >规划区域介绍</a-menu-item
-            >
-            <a-menu-item key="ch1-2" @click="goPage('ch1-2')"
-              >重要领导人讲话</a-menu-item
-            >
-            <a-menu-item key="ch1-3" @click="goPage('ch1-3')"
-              >相关政策文件</a-menu-item
-            >
-            <a-menu-item key="ch1-4" @click="goPage('ch1-4')"
-              >宏观发展形势</a-menu-item
-            >
-            <a-menu-item key="ch1-5" @click="goPage('ch1-5')"
-              >规划目的与意义</a-menu-item
-            >
           </a-sub-menu>
 
           <a-sub-menu key="ch2">
             <span slot="title">
               <span>发展现状分析</span>
             </span>
-            <a-menu-item key="ch2-1" @click="goPage('ch2-1')"
-              >产业发展成就1</a-menu-item
-            >
-            <a-menu-item key="ch2-2" @click="goPage('ch2-2')"
-              >现存发展成就2</a-menu-item
-            >
+            <a-menu-item key="ch2-1" @click="goPage('ch2-1')">产业发展成就</a-menu-item>
+            <a-menu-item key="ch2-2" @click="goPage('ch2-2')">现存发展问题</a-menu-item>
           </a-sub-menu>
 
           <a-sub-menu key="ch3">
             <span slot="title">
               <span>发展条件与环境</span>
             </span>
-            <a-menu-item key="3" @click="goPage('xxx')"
-              >地区要素条件分析</a-menu-item
-            >
-            <a-menu-item key="4" @click="goPage('xxx')"
-              >地区发展环境分析</a-menu-item
-            >
+            <a-menu-item key="3" @click="goPage('xxx')">地区要素条件分析</a-menu-item>
+            <a-menu-item key="4" @click="goPage('xxx')">地区发展环境分析</a-menu-item>
           </a-sub-menu>
 
           <a-sub-menu key="ch4">
@@ -123,14 +84,12 @@
           <a-breadcrumb-item>List</a-breadcrumb-item>
           <a-breadcrumb-item>App</a-breadcrumb-item>
         </a-breadcrumb> -->
-        <a-layout-content
-          :style="{
-            background: '#fff',
-            padding: '24px',
-            margin: 0,
-            minHeight: '600px',
-          }"
-        >
+        <a-layout-content :style="{
+          background: '#fff',
+          padding: '24px',
+          margin: 0,
+          minHeight: '600px',
+        }">
           <!-- 修改注销minHeight 备份 -->
           <!-- <a-layout-content
           :style="{ background: '#fff', padding: '24px', margin: 0, minHeight: '280px' }"
@@ -166,16 +125,39 @@
   line-height: 31px;
   font-size: 16px;
 }
+
 p {
   text-indent: 2em;
   text-align: left;
-  font-size: 16px;
+  font-size: 17px;
 }
+
 h2,
-h3 {
+h3,
+h4 {
   text-align: left;
-  font-size: 20px;
 }
+
+h1 {
+  font-size: 25px;
+  margin-left: 5px;
+}
+
+h2 {
+  font-size: 23px;
+  margin-left: 10px;
+}
+
+h3 {
+  font-size: 20px;
+  margin-left: 15px;
+}
+
+h4 {
+  font-size: 18px;
+  margin-left: 20px;
+}
+
 
 .right {
   float: right;
@@ -194,7 +176,7 @@ export default {
       theme: "light",
     };
   },
-  mounted() {},
+  mounted() { },
   methods: {
     changeMode(checked) {
       this.mode = checked ? "vertical" : "inline";

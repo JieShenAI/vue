@@ -18,13 +18,13 @@ const actions = {
 	jiaOdd(context,value){
 		console.log('actions中的jiaOdd被调用了')
 		if(context.state.sum % 2){
-			context.commit('JIA',value)
+			context.commit('JIA',value);
 		}
 	},
 	jiaWait(context,value){
 		console.log('actions中的jiaWait被调用了')
 		setTimeout(()=>{
-			context.commit('JIA',value)
+			context.commit('JIA',value);
 		},500)
 	}
 }

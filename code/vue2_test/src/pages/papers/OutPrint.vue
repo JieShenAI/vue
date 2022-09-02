@@ -13,6 +13,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import Ch1Se1 from './Ch1/Ch1Se1.vue';
 import Ch2Se1 from './Ch2/Ch2Se1.vue';
 import Ch2Se2 from './Ch2/Ch2Se2.vue';
@@ -31,9 +32,31 @@ export default {
                     elmArr.push({ [n.tagName]: n.innerText });
                 }
             }
-            console.log(elmArr);
+            this.postData(elmArr);
         },
-    }
+        postData(arrObj) {
+            axios({
+                url: "http://localhost:80/api/paper/downword",
+                method: "post",
+                //发送格式为json
+                data: JSON.stringify(arrObj),
+                responseType: 'blob',
+            }).then((res) => {
+                let resData = new Blob([res.data], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' })
+                let dowLink = URL.createObjectURL(resData)
+                var aDom = document.createElement("a");
+                aDom.setAttribute('style', 'display:none');
+                aDom.setAttribute('href', dowLink);
+                aDom.setAttribute('download', "报告" + ".docx");
+                document.body.appendChild(aDom);
+                aDom.click();
+                URL.revokeObjectURL(dowLink);
+                document.body.removeChild(aDom);
+            }).catch((err) => {
+                console.log("下载出错" + err);
+            });
+        },
+    },
 }
 </script>
 

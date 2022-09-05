@@ -127,7 +127,7 @@
 }
 
 p {
-  text-indent: 2em;
+  /* text-indent: 2em; */
   text-align: left;
   font-size: 17px;
 }

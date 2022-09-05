@@ -5,10 +5,10 @@
                 <h1>恩施土家族苗族自治州产业发展总体规划 2025-2035</h1>
             </div>
             <Ch1Se1 />
-            <Ch2Se1 />
+            <Ch2Se1 @recvTextObj="recvTextObj" :textOrder="2" />
             <Ch2Se2 />
         </div>
-        <button @click="showElm">点击导出</button>
+        <button @click="recvTextObj">点击导出</button>
     </div>
 </template>
 
@@ -23,8 +23,16 @@ export default {
         Ch2Se1,
         Ch2Se2,
     },
+    data(){
+        return {
+            postObj : {},
+        }
+    },
     methods: {
-        showElm() {
+        recvTextObj(textOrder,textObj) {
+            this.postObj[textOrder] = textObj;
+            this.postData(this.postObj);
+            /*
             let nodes = this.$refs.content.childNodes;
             let elmArr = [];
             for (let node of nodes) {
@@ -33,6 +41,7 @@ export default {
                 }
             }
             this.postData(elmArr);
+            */
         },
         postData(arrObj) {
             axios({

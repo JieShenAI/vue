@@ -5,8 +5,13 @@
       <h2>产业发展成就</h2>
       <h3>（一）基本经济指标</h3>
       <h4>1. 地区生产总值</h4>
-      <p>2021年恩施实现地区生产总值{{ gdp }}亿元，按可比价格计算，比上年增长{{ gdpIncrease }}%（名义增速16.5%），
-        经济总量和增速在湖北省地级行政区位居第11位和第5位，高于同年{{ provinceGdpIncrease }}%的全省平均增速；
+      <p>
+        2021年恩施实现地区生产总值￥{{ gdp }}亿元，按可比价格计算，比上年增长{{
+          gdpIncrease
+        }}%（名义增速16.5%），
+        经济总量和增速在湖北省地级行政区位居第11位和第5位，高于同年{{
+          provinceGdpIncrease
+        }}%的全省平均增速；
         在全国地级行政区中位居第___位，高于同年8.1%的全国平均增速。全州人均地区生产总值38011（37642）元，
         在湖北省地级行政区位居第13位，低于同年全省86600的平均水平，在全国地级行政区中位居第___位，
         低于同年全国81000元的平均水平。
@@ -27,16 +32,21 @@
       </p>
       <h4>3. 地区资产规模</h4>
       <p>
-        2020年，恩施全州新增固定资产247164万元，比上年增长 %。固定资产积累达到 亿元；
-        规模以上固定资产原价为 万元。全年固定资产投资比上年增长23.3%。分产业看，第一产业投资增长69.0%；
-        第二产业投资增长15.6%；第三产业投资增长24.0%。实际利用外资 万美元，比上年增长 %。
+        2020年，恩施全州新增固定资产247164万元，比上年增长 %。固定资产积累达到
+        亿元； 规模以上固定资产原价为
+        万元。全年固定资产投资比上年增长23.3%。分产业看，第一产业投资增长69.0%；
+        第二产业投资增长15.6%；第三产业投资增长24.0%。实际利用外资
+        万美元，比上年增长 %。
       </p>
       <h4>4.地区消费市场</h4>
       <p>
         2020年，社会消费品零售总额为5625925万元，居民消费水平为19710元，农村居民为13525元，城市居民为26909元，
-        比上年分别增长 %、 %、 %。进出口总额为9435.70万美元，其中出口9375.5万美元，进60.2万美元，
-        比上年分别增长 %、 %、 %。城镇常住居民人均可支配收入为30930元，生活消费支出为21898万元；
-        农村常住居民人均可支配收入11887元，生活消费支出10061元，比上年分别增长 %、 %、 %。
+        比上年分别增长 %、 %、
+        %。进出口总额为9435.70万美元，其中出口9375.5万美元，进60.2万美元，
+        比上年分别增长 %、 %、
+        %。城镇常住居民人均可支配收入为30930元，生活消费支出为21898万元；
+        农村常住居民人均可支配收入11887元，生活消费支出10061元，比上年分别增长
+        %、 %、 %。
       </p>
 
       <h3>（二）产业结构变化</h3>
@@ -93,9 +103,7 @@
         2020年恩施全州旅游接待人数34992361人次，累计旅游综合收入达到2021600万元。全州共有旅行社133家，
         三星级以上饭店46各，4A级以上景区20个。
       </p>
-      <h3>
-        （四）重点企业发展情况
-      </h3>
+      <h3>（四）重点企业发展情况</h3>
       <p>
         一是总量增加。“十三五”末，全州全口径工业总产值突破600亿元，规模以上工业企业达到293家，
         2020年规上工业增加值增速9.7%。
@@ -114,46 +122,52 @@
         18家企业被认定为湖北省支柱产业细分领域科技小巨人或隐形冠军培育企业。
       </p>
     </div>
-    <div v-for="(data, index) in arr" :key="index">
-      <TxtEdit :textObj="data" @sendTxt="sendTxt" :idx="index" />
-    </div>
-    <!-- <button @click="fillParagraphText">点击</button> -->
-  </div>
 
+    <div v-for="data in arr" :key="data.id">
+      <TxtEdit
+        :textObj="data"
+        @sendTxt="sendTxt"
+        @addText="addText"
+        @deleteText="deleteText"
+        :id="data.id"
+      />
+    </div>
+  </div>
 </template>
 
 <script>
-import axios from 'axios';
-import {obj} from '../data'
-import TxtEdit from '@/components/TxtEdit.vue';
+import axios from "axios";
+import { obj, findIdx } from "../data";
+import TxtEdit from "@/components/TxtEdit.vue";
+import { nanoid } from "nanoid";
 export default {
-  props:["textOrder"],
-  components:{
+  props: ["papers"],
+  components: {
     TxtEdit,
   },
   data() {
     return {
       ...obj(), // 初始化赋值为0
-      arr:[],
+      arr: this.papers["2-1"] || [],
+    };
+  },
+  created() {
+    if (this.arr == false) {
+      this.getData();
     }
   },
-  created(){
-    this.obj = this.getData();
-    // 模板解析后，获取模板内填充的文本
-    setTimeout(() => {
-      this.fillParagraphText();
-    });
-  },
-  mounted() {
-    this.$emit("recvTextObj",this.textOrder,this.arr);
-  },
+  mounted() {},
   methods: {
     getData() {
-      let url = "http://localhost:80/api/jsons/query?year=2021&cityID=422801"
+      let url = "http://localhost:80/api/jsons/query?year=2021&cityID=422801";
       axios.get(url).then(
         (response) => {
           console.log("请求成功了", response.data);
           this.init(response.data);
+
+          setTimeout(() => {
+            this.fillParagraphText();
+          });
         },
         (error) => {
           console.log("请求失败了", error.message);
@@ -161,34 +175,52 @@ export default {
       );
     },
     init(obj) {
-      this.avgGdp = obj.avgGdp
-      this.avgProvinceGdp = obj.avgProvinceGdp
-      this.cityID = obj.cityID
-      this.countryGdp = obj.countryGdp
-      this.countryGdpIncrease = obj.countryGdpIncrease
-      this.gdp = obj.gdp
-      this.gdpIncrease = obj.gdpIncrease
-      this.provinceGdp = obj.provinceGdp
-      this.provinceGdpIncrease = obj.provinceGdpIncrease
-      this.year = obj.year
+      this.avgGdp = obj.avgGdp;
+      this.avgProvinceGdp = obj.avgProvinceGdp;
+      this.cityID = obj.cityID;
+      this.countryGdp = obj.countryGdp;
+      this.countryGdpIncrease = obj.countryGdpIncrease;
+      this.gdp = obj.gdp;
+      this.gdpIncrease = obj.gdpIncrease;
+      this.provinceGdp = obj.provinceGdp;
+      this.provinceGdpIncrease = obj.provinceGdpIncrease;
+      this.year = obj.year;
     },
-    fillParagraphText(){
-      // let arr = [];
+    fillParagraphText() {
+      // 将获取了数据库数据的页面上的文本添加到arr数组中
       let nodes = this.$refs.content.childNodes;
-      for(let node of nodes){
+      for (let node of nodes) {
         this.arr.push({
-          [node.tagName]:node.innerText
-          });
+          [node.tagName]: node.innerText,
+          id: nanoid(),
+        });
       }
-      // return arr;
     },
-    sendTxt(idx, value) {
-      this.arr[idx] = value;
+    sendTxt(id, value) {
+      this.arr[findIdx(this.arr, id)] = value;
+      this.save();
+    },
+    deleteText(id) {
+      this.arr.splice(findIdx(this.arr, id), 1);
+      this.save();
+      // this.$router.go(0);
+    },
+    addText(id, textValue) {
+      this.arr.splice(findIdx(this.arr, id) + 1, 0, {
+        P: textValue,
+        id: nanoid(),
+      });
+      this.save();
+      // this.$router.go(0);
+    },
+    save() {
+      this.$bus.$emit("updatePapers", "2-1", this.arr);
     },
   },
-
-}
+  beforeDestroy() {
+    this.save();
+  },
+};
 </script>
 
-<style>
-</style>
+<style></style>

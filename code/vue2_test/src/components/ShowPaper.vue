@@ -8,7 +8,6 @@
       <a-menu theme="dark" mode="horizontal" :default-selected-keys="['2']" :style="{ lineHeight: '64px' }">
         <a-button-group>
           <div>
-            <!-- <a-button type="primary" icon="cloud-upload" style="height: 80%" @click="savePaper"></a-button> -->
             <!-- <a-button
               type="primary"
               icon="cloud-download"
@@ -98,7 +97,7 @@
           <!-- <keep-alive>
             <router-view></router-view>
           </keep-alive> -->
-          <router-view></router-view>
+          <router-view :papers="papers"></router-view>
         </a-layout-content>
       </a-layout>
     </a-layout>
@@ -170,13 +169,17 @@ export default {
   name: "ShowPaper",
   components: {},
   data() {
+    console.log("pre", JSON.parse(localStorage.getItem('papers')) || {});
     return {
       // collapsed: false,
       mode: "inline",
       theme: "light",
+      papers: JSON.parse(localStorage.getItem('papers')) || { "2-1": [] },
     };
   },
-  mounted() { },
+  mounted() {
+    this.$bus.$on('updatePapers', this.updatePapers);
+  },
   methods: {
     changeMode(checked) {
       this.mode = checked ? "vertical" : "inline";
@@ -189,17 +192,19 @@ export default {
         name: name,
       });
     },
-    savePaper() {
-      let url = "http://localhost:8080/jango/paper/upjson";
-      this.postData(url, this.$paper);
-      alert("上传完成");
+    updatePapers(key, textObj) {
+      // alert("修改数据");
+      console.log("key: ", key);
+      console.log("textObj: ", textObj);
+      this.papers[key] = textObj;
+      localStorage.setItem('papers', JSON.stringify(this.papers))
     },
-    /*
-    getData() {
-      let obj = this.queryJson("save");
-      // this.$paper = obj;
-      console.log("obj", obj);
-    },*/
+  },
+  watch: {
+
+  },
+  beforeDestroy() {
+    this.$bus.$off('updatePapers');
   },
 };
 </script>

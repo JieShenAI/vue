@@ -14,3 +14,14 @@ export function obj() {
         year: 0,
     }
 }
+
+// 从数组中，找出值为value的下标
+export function findIdx(arr, value) {
+    let idx = -1;
+    for (let v of arr) {
+        idx++;
+        if (v.id === value) {
+            return idx;
+        }
+    }
+}

@@ -35,6 +35,7 @@ Vue.use(VueRouter)
 import { paperMix } from './mixin'
 Vue.mixin(paperMix)
 
+/*
 Vue.prototype.$paper = {
   ch1: {
   },
@@ -43,11 +44,15 @@ Vue.prototype.$paper = {
   ch4: {},
   ch5: {},
   ch6: {},
-}
+}*/
 new Vue({
   el: '#app',
   render: h => h(App),
   components: { App },
   template: '<App/>',
   router: router,
+  // 事件总线
+  beforeCreate() {
+    Vue.prototype.$bus = this
+  },
 });

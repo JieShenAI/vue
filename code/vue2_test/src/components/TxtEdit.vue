@@ -1,7 +1,12 @@
 <template>
   <div>
     <div>
-      <p v-show="!see" @mouseover="Mouseover" @mouseleave="Mouseleave">
+      <p
+        v-show="!see"
+        v-if="!isImg"
+        @mouseover="Mouseover"
+        @mouseleave="Mouseleave"
+      >
         {{ textValue }}
         <a-icon
           type="edit"
@@ -13,12 +18,6 @@
           @click="addT"
           :style="{ visibility: visible, marginLeft: 5 + 'px' }"
         />
-        <!-- <a-icon
-          type="delete"
-          @click="deleteT"
-          :style="{ visibility: visible, marginLeft: 5 + 'px' }"
-        /> -->
-
         <a-popconfirm
           title="确定删除?"
           ok-text="确定"
@@ -33,8 +32,10 @@
           </a>
         </a-popconfirm>
       </p>
+      <img v-if="isImg" :src="textValue" alt="" width="70%" />
     </div>
     <a-textarea
+      v-if="!isImg"
       ref="atextarea"
       v-show="see"
       v-model="textValue"
@@ -53,6 +54,7 @@ export default {
       textValue: Object.values(this.textObj)[0],
       see: false,
       edit: false,
+      isImg: Object.keys(this.textObj)[0] === "IMG" ? true : false,
       visible: "hidden",
       preValue: Object.values(this.textObj)[0],
     };
@@ -76,7 +78,7 @@ export default {
       // 只有文本被修改了,才会触发事件
       if (this.textValue !== this.preValue) {
         console.log("修改后的值: ", this.textValue);
-        this.$emit("sendTxt", this.id, {
+        this.$emit("editText", this.id, {
           [this.textKey]: this.textValue,
           id: this.id,
         });

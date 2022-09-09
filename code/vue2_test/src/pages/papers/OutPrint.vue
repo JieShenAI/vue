@@ -2,9 +2,10 @@
   <div>
     <h1>恩施土家族苗族自治州产业发展总体规划 2025-2035</h1>
 
-    <Ch1Se1 />
+    <Ch1Se1 :papers="papers" />
     <Ch2Se1 :papers="papers" />
-    <Ch2Se2 />
+    <Ch2Se2 :papers="papers" />
+    <button @click="printDocx">导出</button>
   </div>
 </template>
 
@@ -21,11 +22,12 @@ export default {
     Ch2Se2,
   },
   data() {
-    return {
-      postObj: {},
-    };
+    return {};
   },
   methods: {
+    printDocx() {
+      this.postData(this.papers);
+    },
     postData(arrObj) {
       axios({
         url: "http://localhost:80/api/paper/downword",

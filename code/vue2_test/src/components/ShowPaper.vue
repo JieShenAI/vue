@@ -169,7 +169,6 @@ export default {
   name: "ShowPaper",
   components: {},
   data() {
-    console.log("pre", JSON.parse(localStorage.getItem('papers')) || {});
     return {
       // collapsed: false,
       mode: "inline",

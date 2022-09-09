@@ -23,6 +23,7 @@
         从增速来来看，地区生产总值的增速高于全省/全国平均水平，并保持稳定在高增长水平（但呈现出小幅度波动）；
         人均地区生产总值的增速高于同样全省/全国平均水平，并保持稳定在高增长水平（但呈现出小幅度波动）。
       </p>
+      <img src="http://localhost:8080/static/img/ch2-1.png" alt="" />
       <h4>2. 地区财政水平</h4>
       <p>
         2021年，恩施全州地方财政总收入168.75亿元，比上年增长17.8%。其中，地方一般公共预算收入75.51亿元，增长31.0%。
@@ -126,7 +127,7 @@
     <div v-for="data in arr" :key="data.id">
       <TxtEdit
         :textObj="data"
-        @sendTxt="sendTxt"
+        @editText="editText"
         @addText="addText"
         @deleteText="deleteText"
         :id="data.id"
@@ -140,6 +141,7 @@ import axios from "axios";
 import { obj, findIdx } from "../data";
 import TxtEdit from "@/components/TxtEdit.vue";
 import { nanoid } from "nanoid";
+var curKey = "2-1";
 export default {
   props: ["papers"],
   components: {
@@ -148,10 +150,11 @@ export default {
   data() {
     return {
       ...obj(), // 初始化赋值为0
-      arr: this.papers["2-1"] || [],
+      arr: this.papers[curKey] || [],
     };
   },
   created() {
+    // 若this.arr未从内存读取到数据，才会向API获取数据
     if (this.arr == false) {
       this.getData();
     }
@@ -187,23 +190,31 @@ export default {
       this.year = obj.year;
     },
     fillParagraphText() {
+      // 后续使用push，防止this.arr原先有值
+      this.arr = [];
       // 将获取了数据库数据的页面上的文本添加到arr数组中
       let nodes = this.$refs.content.childNodes;
       for (let node of nodes) {
-        this.arr.push({
-          [node.tagName]: node.innerText,
-          id: nanoid(),
-        });
+        if (node.tagName == "IMG") {
+          this.arr.push({
+            [node.tagName]: node.src,
+            id: nanoid(),
+          });
+        } else {
+          this.arr.push({
+            [node.tagName]: node.innerText,
+            id: nanoid(),
+          });
+        }
       }
     },
-    sendTxt(id, value) {
-      this.arr[findIdx(this.arr, id)] = value;
+    editText(id, obj) {
+      this.arr[findIdx(this.arr, id)] = obj;
       this.save();
     },
     deleteText(id) {
       this.arr.splice(findIdx(this.arr, id), 1);
       this.save();
-      // this.$router.go(0);
     },
     addText(id, textValue) {
       this.arr.splice(findIdx(this.arr, id) + 1, 0, {
@@ -211,10 +222,9 @@ export default {
         id: nanoid(),
       });
       this.save();
-      // this.$router.go(0);
     },
     save() {
-      this.$bus.$emit("updatePapers", "2-1", this.arr);
+      this.$bus.$emit("updatePapers", curKey, this.arr);
     },
   },
   beforeDestroy() {

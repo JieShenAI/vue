@@ -9,6 +9,7 @@ import VueRouter from 'vue-router'
 export default new VueRouter({
     routes: [
         { name: "MyDemo", path: "/demo", component: () => import('../pages/test/MyDemo') },
+        { name: "MyTest", path: "/test", component: () => import('../pages/test/MyTest') },
         { name: "ch1-1", path: "/ch1-1", component: () => import('../pages/papers/Ch1/Ch1Se1') },
         { name: "ch2-1", path: "/ch2-1", component: () => import('../pages/papers/Ch2/Ch2Se1') },
         { name: "ch2-2", path: "/ch2-2", component: () => import('../pages/papers/Ch2/Ch2Se2') },

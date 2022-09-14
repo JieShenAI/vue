@@ -1,6 +1,13 @@
 <template>
   <div>
-    <div v-show="false" ref="content">
+    <div style="float: right">
+      <a-button type="primary" @click="changeEdit">
+        <a-icon type="book" />
+        /
+        <a-icon type="form" />
+      </a-button>
+    </div>
+    <div v-show="isEdit" ref="content">
       <h1>一、规划背景</h1>
       <h2>（一）规划区域介绍：</h2>
       <p>
@@ -66,7 +73,7 @@
       </p>
     </div>
 
-    <div v-for="data in arr" :key="data.id">
+    <div v-show="!isEdit" v-for="data in arr" :key="data.id">
       <TxtEdit
         :textObj="data"
         @editText="editText"
@@ -91,6 +98,7 @@ export default {
   data() {
     return {
       ...obj(), // 初始化赋值为0
+      isEdit: false,
       arr: this.papers[curKey] || [],
     };
   },
@@ -103,6 +111,9 @@ export default {
   methods: {
     init() {
       // 可参考ch2se1的初始化
+    },
+    changeEdit() {
+      this.isEdit = !this.isEdit;
     },
     fillParagraphText() {
       // 将获取了数据库数据的页面上的文本添加到arr数组中
@@ -142,4 +153,3 @@ export default {
 </script>
 
 <style></style>
-

@@ -1,16 +1,15 @@
 <template>
   <div id="app">
-    <ShowPaper />
+    <Header></Header>
+    <router-view></router-view>
+    <Footer></Footer>
   </div>
 </template>
 
 <script>
-import ShowPaper from "./components/ShowPaper.vue";
 export default {
   name: "App",
-  components: {
-    ShowPaper,
-  },
+  components: {},
 };
 </script>
 

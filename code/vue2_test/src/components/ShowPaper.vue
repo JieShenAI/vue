@@ -5,7 +5,12 @@
       <div class="logo">
         <div class="logoTxt">产业规划</div>
       </div>
-      <a-menu theme="dark" mode="horizontal" :default-selected-keys="['2']" :style="{ lineHeight: '64px' }">
+      <a-menu
+        theme="dark"
+        mode="horizontal"
+        :default-selected-keys="['2']"
+        :style="{ lineHeight: '64px' }"
+      >
         <a-button-group>
           <div>
             <!-- <a-button
@@ -32,8 +37,13 @@
           <a-switch :default-checked="false" @change="changeTheme" /> 主题
         </div>
         <br />
-        <a-menu style="width: 256x" :default-selected-keys="['1']" :default-open-keys="['sub1']" :mode="mode"
-          :theme="theme">
+        <a-menu
+          style="width: 256x"
+          :default-selected-keys="['1']"
+          :default-open-keys="['sub1']"
+          :mode="mode"
+          :theme="theme"
+        >
           <a-sub-menu key="ch1">
             <span slot="title" @click="goPage('ch1-1')">
               <span>规划编制背景</span>
@@ -44,16 +54,24 @@
             <span slot="title">
               <span>发展现状分析</span>
             </span>
-            <a-menu-item key="ch2-1" @click="goPage('ch2-1')">产业发展成就</a-menu-item>
-            <a-menu-item key="ch2-2" @click="goPage('ch2-2')">现存发展问题</a-menu-item>
+            <a-menu-item key="ch2-1" @click="goPage('ch2-1')"
+              >产业发展成就</a-menu-item
+            >
+            <a-menu-item key="ch2-2" @click="goPage('ch2-2')"
+              >现存发展问题</a-menu-item
+            >
           </a-sub-menu>
 
           <a-sub-menu key="ch3">
             <span slot="title">
               <span>发展条件与环境</span>
             </span>
-            <a-menu-item key="3" @click="goPage('xxx')">地区要素条件分析</a-menu-item>
-            <a-menu-item key="4" @click="goPage('xxx')">地区发展环境分析</a-menu-item>
+            <a-menu-item key="3" @click="goPage('xxx')"
+              >地区要素条件分析</a-menu-item
+            >
+            <a-menu-item key="4" @click="goPage('xxx')"
+              >地区发展环境分析</a-menu-item
+            >
           </a-sub-menu>
 
           <a-sub-menu key="ch4">
@@ -83,12 +101,14 @@
           <a-breadcrumb-item>List</a-breadcrumb-item>
           <a-breadcrumb-item>App</a-breadcrumb-item>
         </a-breadcrumb> -->
-        <a-layout-content :style="{
-          background: '#fff',
-          padding: '24px',
-          margin: 0,
-          minHeight: '600px',
-        }">
+        <a-layout-content
+          :style="{
+            background: '#fff',
+            padding: '24px',
+            margin: 0,
+            minHeight: '600px',
+          }"
+        >
           <!-- 修改注销minHeight 备份 -->
           <!-- <a-layout-content
           :style="{ background: '#fff', padding: '24px', margin: 0, minHeight: '280px' }"
@@ -103,7 +123,6 @@
     </a-layout>
   </a-layout>
 </template>
-
 
 <style>
 #components-layout-demo-top-side-2 .logo {
@@ -157,12 +176,10 @@ h4 {
   margin-left: 20px;
 }
 
-
 .right {
   float: right;
 }
 </style>
-
 
 <script>
 export default {
@@ -173,11 +190,13 @@ export default {
       // collapsed: false,
       mode: "inline",
       theme: "light",
-      papers: JSON.parse(localStorage.getItem('papers')) || { "2-1": [] },
+      papers: JSON.parse(localStorage.getItem("papers")) || { "2-1": [] },
+      // 存储在浏览器内存的
+      localKey: "paper",
     };
   },
   mounted() {
-    this.$bus.$on('updatePapers', this.updatePapers);
+    this.$bus.$on("updatePapers", this.updatePapers);
   },
   methods: {
     changeMode(checked) {
@@ -196,14 +215,12 @@ export default {
       console.log("key: ", key);
       console.log("textObj: ", textObj);
       this.papers[key] = textObj;
-      localStorage.setItem('papers', JSON.stringify(this.papers))
+      localStorage.setItem("papers", JSON.stringify(this.papers));
     },
   },
-  watch: {
-
-  },
+  watch: {},
   beforeDestroy() {
-    this.$bus.$off('updatePapers');
+    this.$bus.$off("updatePapers");
   },
 };
 </script>

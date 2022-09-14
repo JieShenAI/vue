@@ -1,5 +1,12 @@
 import Vue from 'vue';
 import App from './App.vue';
+
+import Header from '@/components/header';
+import Footer from '@/components/footer';
+
+Vue.component(Header.name, Header);
+Vue.component(Footer.name, Footer);
+
 //关闭Vue的生产提示
 Vue.config.productionTip = false;
 
@@ -35,6 +42,9 @@ Vue.use(VueRouter)
 import { paperMix } from './mixin'
 Vue.mixin(paperMix)
 
+// vuex
+import store from './store'
+
 /*
 Vue.prototype.$paper = {
   ch1: {
@@ -47,12 +57,12 @@ Vue.prototype.$paper = {
 }*/
 new Vue({
   el: '#app',
-  render: h => h(App),
-  components: { App },
-  template: '<App/>',
-  router: router,
   // 事件总线
   beforeCreate() {
-    Vue.prototype.$bus = this
+    Vue.prototype.$bus = this;
   },
+  components: { App },
+  router: router,
+  store,
+  render: h => h(App),
 });

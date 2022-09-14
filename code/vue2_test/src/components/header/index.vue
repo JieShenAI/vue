@@ -5,6 +5,9 @@
       <div class="top">
         <div class="container">
           <div class="loginList">
+            <a href="/" title="首页">
+              <a-icon type="home" />
+            </a>
             <p>欢迎您！</p>
             <!-- 没有登录：显示登录与注册 -->
             <p v-if="!$store.state.user.nickName">
@@ -24,11 +27,11 @@
             </p>
           </div>
           <div class="typeList">
-            <!-- <router-link to="/center">我的订单</router-link> -->
+            <router-link to="/paper">文档编写</router-link>
             <!-- <router-link to="/shopcart">我的购物车</router-link> -->
-            <a href="###">企业采购</a>
-            <a href="###">关注我们</a>
-            <a href="###">合作招商</a>
+            <a :href="caigou">采购公告</a>
+            <a href="###">关于我们</a>
+            <a href="###">联系我们</a>
           </div>
         </div>
       </div>
@@ -62,6 +65,7 @@
 </template>
 
 <script>
+import { serverLink } from "@/utils/staticSrc";
 export default {
   //给组件起一个名字,开发者工具中显示这个组件的时候，显示的就是这个名字
   name: "Header",
@@ -69,6 +73,7 @@ export default {
     return {
       //收集用户输入的关键字
       keyword: "",
+      caigou: serverLink('/ccgp/list/')
     };
   },
   methods: {
@@ -115,7 +120,7 @@ export default {
     //退出登录的按钮的回调
     logout() {
       //派遣action退出登录
-       this.$store.dispatch('logout');
+      this.$store.dispatch("logout");
     },
   },
   mounted() {
@@ -130,7 +135,7 @@ export default {
 
 <style scoped lang="less">
 .header {
-  & > .top {
+  &>.top {
     background-color: #eaeaea;
     height: 30px;
     line-height: 30px;
@@ -161,7 +166,7 @@ export default {
         a {
           padding: 0 10px;
 
-          & + a {
+          &+a {
             border-left: 1px solid #b3aeae;
           }
         }
@@ -169,7 +174,7 @@ export default {
     }
   }
 
-  & > .bottom {
+  &>.bottom {
     width: 1200px;
     margin: 0 auto;
     overflow: hidden;
@@ -177,6 +182,7 @@ export default {
     .logoArea {
       float: left;
       background-color: rgb(168, 67, 67);
+
       .logo {
         img {
           width: 109px;

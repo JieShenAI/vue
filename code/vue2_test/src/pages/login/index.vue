@@ -27,7 +27,7 @@
               <div class="input-text clearFix">
                 <span class="pwd"></span>
                 <input
-                  type="text"
+                  type="password"
                   placeholder="请输入密码"
                   v-model="password"
                 />
@@ -103,7 +103,7 @@ export default {
         //跳转到首页
         this.$router.push(goPath);
       } catch (error) {
-        alert(error.message);
+        console.log(error);
       }
     },
   },

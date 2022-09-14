@@ -1,11 +1,16 @@
 <template>
   <div>
-    <img src="http://localhost:8080/static/img/ch2-1.png" alt="" />
+    <!-- <img :src="serverStaticPath('/img/ch2-1.png')" alt="" /> -->
+    <button @click="show">点击</button>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {
+    show() {},
+  },
+};
 </script>
 
 <style></style>

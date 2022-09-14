@@ -23,7 +23,7 @@
         从增速来来看，地区生产总值的增速高于全省/全国平均水平，并保持稳定在高增长水平（但呈现出小幅度波动）；
         人均地区生产总值的增速高于同样全省/全国平均水平，并保持稳定在高增长水平（但呈现出小幅度波动）。
       </p>
-      <img src="http://localhost:8080/static/img/ch2-1.png" alt="" />
+      <img :src="serverStaticPath('/img/ch2-1.png')" alt="" />
       <h4>2. 地区财政水平</h4>
       <p>
         2021年，恩施全州地方财政总收入168.75亿元，比上年增长17.8%。其中，地方一般公共预算收入75.51亿元，增长31.0%。
@@ -142,6 +142,7 @@ import { obj, findIdx } from "../data";
 import TxtEdit from "@/components/TxtEdit.vue";
 import { nanoid } from "nanoid";
 import { reqAreaInfo } from "@/api";
+import { serverStaticPath } from "@/utils/staticSrc";
 var curKey = "2-1";
 export default {
   props: ["papers"],
@@ -162,6 +163,7 @@ export default {
   },
   mounted() {},
   methods: {
+    serverStaticPath,
     async getData() {
       // let url = "http://localhost:80/api/jsons/query?year=2021&cityID=422801";
       let data = { year: 2021, cityID: 422801 };

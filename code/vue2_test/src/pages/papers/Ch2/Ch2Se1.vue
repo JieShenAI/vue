@@ -137,10 +137,11 @@
 </template>
 
 <script>
-import axios from "axios";
+// import axios from "axios";
 import { obj, findIdx } from "../data";
 import TxtEdit from "@/components/TxtEdit.vue";
 import { nanoid } from "nanoid";
+import { reqAreaInfo } from "@/api";
 var curKey = "2-1";
 export default {
   props: ["papers"],
@@ -161,21 +162,31 @@ export default {
   },
   mounted() {},
   methods: {
-    getData() {
-      let url = "http://localhost:80/api/jsons/query?year=2021&cityID=422801";
-      axios.get(url).then(
-        (response) => {
-          console.log("请求成功了", response.data);
-          this.init(response.data);
+    async getData() {
+      // let url = "http://localhost:80/api/jsons/query?year=2021&cityID=422801";
+      let data = { year: 2021, cityID: 422801 };
+      let res = await reqAreaInfo(data);
+      if (res.code == 200) {
+        this.init(res.data);
+        setTimeout(() => {
+          this.fillParagraphText();
+        });
+      } else {
+        console.log("请求失败了");
+      }
+      // axios.get(url).then(
+      //   (response) => {
+      //     console.log("请求成功了", response.data);
+      //     this.init(response.data);
 
-          setTimeout(() => {
-            this.fillParagraphText();
-          });
-        },
-        (error) => {
-          console.log("请求失败了", error.message);
-        }
-      );
+      //     setTimeout(() => {
+      //       this.fillParagraphText();
+      //     });
+      //   },
+      //   (error) => {
+      //     console.log("请求失败了", error.message);
+      //   }
+      // );
     },
     init(obj) {
       this.avgGdp = obj.avgGdp;

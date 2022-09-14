@@ -58,8 +58,12 @@ export const reqGetCode = (phone) => requests({ url: `/user/passport/sendCode/${
 //注册的接口
 export const reqRegister = (data) => requests({ url: `/user/register/`, method: 'post', data });
 
+// jie
 //登录的接口:请求体携带参数 phone&&password
 export const reqUserLogin = (data) => requests({ url: `/user/login/`, method: 'post', data });
+
+
+export const reqAreaInfo = (data) => requests({ url: `/jsons/query/`, method: 'post', data })
 
 //获取用户登录成功以后用户信息的接口
 export const reqUserInfo = () => requests({ url: `/user/passport/auth/getUserInfo`, method: 'get' });

@@ -55,7 +55,7 @@ Vue.prototype.$paper = {
   ch5: {},
   ch6: {},
 }*/
-new Vue({
+const vue = new Vue({
   el: '#app',
   // 事件总线
   beforeCreate() {
@@ -66,3 +66,5 @@ new Vue({
   store,
   render: h => h(App),
 });
+
+export default vue;

@@ -30,7 +30,7 @@ export default {
     },
     postData(arrObj) {
       axios({
-        url: "http://localhost:80/api/paper/downword/",
+        url: "/api/paper/downword/",
         method: "post",
         //发送格式为json
         data: JSON.stringify(arrObj),

@@ -1,14 +1,23 @@
-let a = [0, 1, 2, 3, 4, 5, 7, 8];
-// a.splice(7, 0, 9, 10, 11);
-// console.log(a);
-
-let v = 7;
-let idx = 0;
-for (let t of a) {
-    idx++;
-    if (t === v) {
-        break;
+let arr = [
+    {
+        id: "1",
+        v: "10",
+    },
+    {
+        id: "2",
+        v: "20",
     }
+];
+
+const getContainerName = (obj) => {
+    let name = ""
+    Object.keys(obj).forEach(
+        (tagName) => {
+            if (tagName != "id") {
+                name = tagName;
+                return
+            }
+        }
+    )
+    return name;
 }
-a.splice(idx, 0, 99);
-console.log(a);

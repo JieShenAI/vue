@@ -33,7 +33,6 @@
         一是行业管理机制不顺。部分行业管理部门省、州、县上下不对应，衔接不顺畅严重影响工作效率；部分行业管理职责不够明确。二是引领行业发展不够。重企业轻产业，对产业发展的总体谋划、发展定位、路径研究、问题解析、运行调度不够。恩施玉露、利川红等品牌价值未充分发挥，硒食品、药材等优质资源精深加工方向不够明确，龙头企业培育效果不佳，建材特别是商砼产能过剩等行业突出问题未能有效解决。三是行业管理能力不强。各行业管理部门普遍存在行业管理人员力量不足、业务素质不强、系统培训不多的短板。
       </p>
     </div>
-
     <div v-for="data in arr" :key="data.id">
       <TxtEdit
         :textObj="data"
@@ -65,7 +64,7 @@ export default {
   created() {},
   mounted() {
     if (this.arr == false) {
-      this.fillParagraphText();
+      this.fillParcagraphText();
     }
   },
   methods: {
@@ -89,7 +88,6 @@ export default {
     deleteText(id) {
       this.arr.splice(findIdx(this.arr, id), 1);
       this.save();
-      // this.$router.go(0);
     },
     addText(id, textValue) {
       this.arr.splice(findIdx(this.arr, id) + 1, 0, {

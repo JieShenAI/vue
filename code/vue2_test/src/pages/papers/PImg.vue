@@ -20,7 +20,7 @@
 <script>
 import { initPImg } from "@/pages/papers/data"
 export default {
-    props: ["obj", "chse"],
+    props: ["obj", "chse", "paperId"],
     data() {
         return {
             ...initPImg(this.obj),
@@ -40,15 +40,15 @@ export default {
         editT() {
             this.isEdit = false;
             if (this.preValue != this.textValue) {
-                this.$store.commit("editP", { chse: this.chse, id: this.id, newValue: this.textValue });
+                this.$store.commit("paper/editP", { paperId: this.paperId, chse: this.chse, id: this.id, newValue: this.textValue });
                 this.preValue = this.textValue;
             }
         },
         deleteT() {
-            this.$store.commit("deleteP", { chse: this.chse, id: this.id });
+            this.$store.commit("paper/deleteP", { paperId: this.paperId, chse: this.chse, id: this.id });
         },
         addT() {
-            this.$store.commit("addP", { chse: this.chse, id: this.id });
+            this.$store.commit("paper/addP", { paperId: this.paperId, chse: this.chse, id: this.id });
         },
     },
 };

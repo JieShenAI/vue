@@ -1,23 +1,13 @@
-let arr = [
-    {
+let arr = {
+    a: {
         id: "1",
         v: "10",
     },
-    {
+    b: {
         id: "2",
         v: "20",
     }
-];
+};
 
-const getContainerName = (obj) => {
-    let name = ""
-    Object.keys(obj).forEach(
-        (tagName) => {
-            if (tagName != "id") {
-                name = tagName;
-                return
-            }
-        }
-    )
-    return name;
-}
+let v = arr.find((o)=>"1"===o.id).v;
+console.log(v);

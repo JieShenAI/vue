@@ -28,7 +28,7 @@
           </div>
           <div class="typeList">
             <router-link to="/paper">文档编写</router-link>
-            <!-- <router-link to="/shopcart">我的购物车</router-link> -->
+            <router-link to="/paperHome">文档中心</router-link>
             <a :href="caigou">采购公告</a>
             <a href="###">关于我们</a>
             <a href="###">联系我们</a>
@@ -120,7 +120,7 @@ export default {
     //退出登录的按钮的回调
     logout() {
       //派遣action退出登录
-      this.$store.dispatch("logout");
+      this.$store.dispatch("user/logout");
     },
   },
   mounted() {

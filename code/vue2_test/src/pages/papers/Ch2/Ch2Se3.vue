@@ -124,34 +124,70 @@
             </p>
         </div>
 
-        <div v-for="data in paper" :key="data.id">
-            <PImg :obj="data" :chse="chse" />
+        <div v-for="data in chapter" :key="data.id">
+            <PImg :obj="data" :chse="chse" :paperId="paperId" />
         </div>
     </div>
 </template>
 
 <script>
+import { reqAreaInfo } from "@/api";
 import { serverStaticPath } from "@/utils/staticSrc";
-import { initPaper, paragraphTextArr } from '../data';
+import { obj, initChapter, paragraphTextArr } from '../data';
 import PImg from '../PImg.vue';
 export default {
+    props: ['paperId'],
     components: {
         PImg,
     },
     data() {
+        let chse = "2-3";
         return {
-            ...initPaper("2-3"),
+            ...obj(),
+            chse,
+            chapter: initChapter(this.paperId,chse),
         }
     },
     created() {
+
+        // 获取数据库中的数据
+        this.getData();
     },
     methods: {
         serverStaticPath,
+        init(obj) {
+            this.avgGdp = obj.avgGdp;
+            this.avgProvinceGdp = obj.avgProvinceGdp;
+            this.cityID = obj.cityID;
+            this.countryGdp = obj.countryGdp;
+            this.countryGdpIncrease = obj.countryGdpIncrease;
+            this.gdp = obj.gdp;
+            this.gdpIncrease = obj.gdpIncrease;
+            this.provinceGdp = obj.provinceGdp;
+            this.provinceGdpIncrease = obj.provinceGdpIncrease;
+            this.year = obj.year;
+        },
+        async getData() {
+            // let url = "http://localhost:80/api/jsons/query?year=2021&cityID=422801";
+            let data = { year: 2021, cityID: 422801 };
+            let res = await reqAreaInfo(data);
+            if (res.code == 200) {
+                this.init(res.data);
+                setTimeout(() => {
+                    this.fillParagraphText();
+                });
+            } else {
+                console.log("请求失败了");
+            }
+        },
+        fillParagraphText() {
+            let nodes = this.$refs.content.childNodes;
+            let arr = paragraphTextArr(nodes);
+            this.$store.commit("paper/fill", { paperId: this.paperId, chse: this.chse, arr });
+        },
     },
     mounted() {
-        let nodes = this.$refs.content.childNodes;
-        let arr = paragraphTextArr(nodes);
-        this.$store.commit("fill", { chse: this.chse, arr });
+
     },
     computed: {
     },

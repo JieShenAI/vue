@@ -32,17 +32,30 @@ export function findIdx(arr, value) {
 
 import vue from '@/main'
 /**
+ * 初始化paper
+ * @returns 
+ */
+export function initPaper({ paperId, year, cityId }) {
+    let paper = [];
+    let storePaper = vue.$store.state.paper.data[paperId];
+    if (storePaper) {
+        paper = storePaper;
+    } else {
+        vue.$store.commit('paper/initPaper', { paperId, year, cityId });
+    }
+    return paper;
+}
+
+/**
  * 初始化每篇文章，赋值为 []
  * @param {*} chse 
  */
-export const initPaper = function (chse) {
-    if (!vue.$store.state.paper.data.hasOwnProperty.call(chse)) {
-        vue.$store.commit("init", { chse });
+export const initChapter = function (paperId, chse) {
+    // if (vue.$store.state.paper.data[paperId][chse] == undefined) {
+    if (Object.prototype.hasOwnProperty.call(vue.$store.state.paper.data[paperId], chse) == false) {
+        vue.$store.commit("paper/initChapter", { paperId, chse });
     }
-    return {
-        chse,
-        paper: vue.$store.state.paper.data[chse],
-    }
+    return vue.$store.state.paper.data[paperId][chse];
 }
 
 

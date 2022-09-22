@@ -97,7 +97,7 @@ export default {
       //在发登录请求
       try {
         //登录成功
-        await this.$store.dispatch("userLogin", { name_email, password });
+        await this.$store.dispatch("user/userLogin", { name_email, password });
 
         let goPath = this.$route.query.redirect || "/home";
         //跳转到首页

@@ -1,5 +1,7 @@
 <template>
-  <div>尾部区域</div>
+  <div>
+
+  </div>
 </template>
 
 <script>
@@ -8,4 +10,6 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+
+</style>
